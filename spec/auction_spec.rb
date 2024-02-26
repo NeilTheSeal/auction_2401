@@ -1,5 +1,6 @@
 require "./spec/spec_helper"
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe Auction do
   before(:each) do
     @auction = Auction.new
@@ -22,5 +23,14 @@ RSpec.describe Auction do
       @auction.add_item(@item2)
       expect(@auction.items).to eq([@item1, @item2])
     end
+    it "can list item names" do
+      @auction.add_item(@item1)
+      @auction.add_item(@item2)
+      expect(@auction.item_names).to eq([
+        "Chalkware Piggy Bank",
+        "Bamboo Picture Frame"
+      ])
+    end
   end
 end
+# rubocop:enable Metrics/BlockLength
