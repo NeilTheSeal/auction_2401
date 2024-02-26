@@ -64,6 +64,43 @@ RSpec.describe Auction do
       @item4.add_bid(@attendee3, 50)
       expect(@auction.bidders).to eq(%w[Bob Megan Mike])
     end
+    it "can edit bidder info" do
+      bidder_info = Hash.new({})
+      @auction.add_item(@item1)
+      @auction.add_item(@item2)
+      @item1.add_bid(@attendee2, 20)
+      @item1.add_bid(@attendee1, 22)
+      @item2.add_bid(@attendee1, 15)
+      @auction.edit_bidder_info(bidder_info, @attendee2, @item1)
+      expect(bidder_info).to eq({
+        @attendee2 => {
+          budget: 75,
+          items: [@item1]
+        }
+      })
+      @auction.edit_bidder_info(bidder_info, @attendee1, @item1)
+      expect(bidder_info).to eq({
+        @attendee1 => {
+          budget: 50,
+          items: [@item1]
+        },
+        @attendee2 => {
+          budget: 75,
+          items: [@item1]
+        }
+      })
+      @auction.edit_bidder_info(bidder_info, @attendee1, @item2)
+      expect(bidder_info).to eq({
+        @attendee1 => {
+          budget: 50,
+          items: [@item1, @item2]
+        },
+        @attendee2 => {
+          budget: 75,
+          items: [@item1]
+        }
+      })
+    end
     it "can list bidder info" do
       @auction.add_item(@item1)
       @auction.add_item(@item2)
