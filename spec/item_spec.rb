@@ -47,6 +47,8 @@ RSpec.describe Item do
         @attendee1 => 22,
         @attendee2 => 20
       })
+      bid_close = @item1.close_bidding
+      expect(bid_close).to eq(false)
     end
   end
 end
