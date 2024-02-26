@@ -33,4 +33,14 @@ class Auction
     end
     revenue
   end
+
+  def bidders
+    bidder_names = []
+    @items.each do |item|
+      item.bids.each_key do |bidder|
+        bidder_names << bidder.name
+      end
+    end
+    bidder_names.uniq.sort
+  end
 end
