@@ -11,6 +11,6 @@ class Item
   end
 
   def current_high_bid
-    @bids.values.max
+    @bids.values.max || 0
   end
 end

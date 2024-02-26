@@ -25,4 +25,12 @@ class Auction
       item.bids.empty?
     end
   end
+
+  def potential_revenue
+    revenue = 0.0
+    @items.each do |item|
+      revenue += item.current_high_bid
+    end
+    revenue
+  end
 end
