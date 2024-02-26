@@ -28,8 +28,8 @@ RSpec.describe Item do
       @item1.add_bid(@attendee2, 20)
       @item1.add_bid(@attendee1, 22)
       expect(@item1.bids).to eq({
-        @attendee1 => 20,
-        @attendee2 => 22
+        @attendee1 => 22,
+        @attendee2 => 20
       })
     end
     it "can list the highest bid" do
