@@ -1,9 +1,16 @@
 require "./spec/spec_helper"
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe Item do
   before(:each) do
     @item1 = Item.new("Chalkware Piggy Bank")
     @item2 = Item.new("Bamboo Picture Frame")
+    @item3 = Item.new("Homemade Chocolate Chip Cookies")
+    @item4 = Item.new("2 Days Dogsitting")
+    @item5 = Item.new("Forever Stamps")
+    @attendee1 = Attendee.new({ name: "Megan", budget: "$50" })
+    @attendee2 = Attendee.new({ name: "Bob", budget: "$75" })
+    @attendee3 = Attendee.new({ name: "Mike", budget: "$100" })
   end
 
   describe "#Initialization - " do
@@ -15,4 +22,16 @@ RSpec.describe Item do
       expect(@item2.name).to eq("Bamboo Picture Frame")
     end
   end
+
+  describe "#Bidding - " do
+    it "can be bidded on" do
+      @item1.add_bid(@attendee2, 20)
+      @item1.add_bid(@attendee1, 22)
+      expect(@item1.bids).to eq({
+        @attendee1 => 20,
+        @attendee2 => 22
+      })
+    end
+  end
 end
+# rubocop:enable Metrics/BlockLength
