@@ -19,4 +19,10 @@ class Auction
     end
     names
   end
+
+  def unpopular_items
+    @items.select do |item|
+      item.bids.empty?
+    end
+  end
 end
