@@ -43,4 +43,19 @@ class Auction
     end
     bidder_names.uniq.sort
   end
+
+  def bidder_info
+    info = Hash.new({})
+    @items.each do |item|
+      item.bids.each_key do |bidder|
+        if info[bidder] == {}
+          info[bidder] = { budget: bidder.budget, items: [item] }
+        else
+          info[bidder][:items] << item
+          info[bidder][:items] = info[bidder][:items].uniq
+        end
+      end
+    end
+    info
+  end
 end
