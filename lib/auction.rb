@@ -48,14 +48,18 @@ class Auction
     info = Hash.new({})
     @items.each do |item|
       item.bids.each_key do |bidder|
-        if info[bidder] == {}
-          info[bidder] = { budget: bidder.budget, items: [item] }
-        else
-          info[bidder][:items] << item
-          info[bidder][:items] = info[bidder][:items].uniq
-        end
+        edit_bidder_info(info, bidder, item)
       end
     end
     info
+  end
+
+  def edit_bidder_info(info, bidder, item)
+    if info[bidder] == {}
+      info[bidder] = { budget: bidder.budget, items: [item] }
+    else
+      info[bidder][:items] << item
+      info[bidder][:items] = info[bidder][:items].uniq
+    end
   end
 end
