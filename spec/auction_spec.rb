@@ -50,7 +50,7 @@ RSpec.describe Auction do
       @item1.add_bid(@attendee1, 22)
       @item4.add_bid(@attendee3, 50)
       expect(@auction.unpopular_items).to eq([@item2, @item3, @item5])
-      @item3.add_bid(@atendee2, 15)
+      @item3.add_bid(@attendee2, 15)
       expect(@auction.unpopular_items).to eq([@item2, @item5])
     end
     it "can list bidders' names" do
@@ -63,6 +63,31 @@ RSpec.describe Auction do
       @item1.add_bid(@attendee1, 22)
       @item4.add_bid(@attendee3, 50)
       expect(@auction.bidders).to eq(%w[Bob Megan Mike])
+    end
+    it "can list bidder info" do
+      @auction.add_item(@item1)
+      @auction.add_item(@item2)
+      @auction.add_item(@item3)
+      @auction.add_item(@item4)
+      @auction.add_item(@item5)
+      @item1.add_bid(@attendee2, 20)
+      @item1.add_bid(@attendee1, 22)
+      @item4.add_bid(@attendee3, 50)
+      @item3.add_bid(@attendee2, 15)
+      expect(@auction.bidder_info).to eq({
+        @attendee1 => {
+          budget: 50,
+          items: [@item1]
+        },
+        @attendee2 => {
+          budget: 75,
+          items: [@item1, @item3]
+        },
+        @attendee3 => {
+          budget: 100,
+          items: [@item4]
+        }
+      })
     end
   end
 
