@@ -1,5 +1,10 @@
 require "./lib/item"
 
 class Attendee
-  def initialize; end
+  attr_reader :name, :budget
+
+  def initialize(info)
+    @name = info[:name]
+    @budget = info[:budget][1..].to_f
+  end
 end
